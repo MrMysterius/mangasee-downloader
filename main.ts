@@ -10,7 +10,7 @@ switch (ARGS._[0] || undefined) {
     if (ARGS._.length <= 1) break;
     const results = await searchAnime(ARGS._.slice(1, ARGS._.length).join(" "));
     for (const result of results) {
-      if (result.score > 0.05) continue;
+      if (result.score > (parseInt(ARGS.s) || parseInt(ARGS["score-threshold"]) || 0.05)) continue;
       let release_year = "";
       let chapters_available = "";
       if (!ARGS["no-metadata"] && !ARGS.n) {

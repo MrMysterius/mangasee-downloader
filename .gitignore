@@ -1,2 +1,6 @@
 # VSCode
 .vscode/
+
+# Builds
+mangasee-dl
+mangasee-dl.exe

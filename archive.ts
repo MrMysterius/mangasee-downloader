@@ -1,4 +1,4 @@
-export async function archive(src_folder: string, archive_name: string): Promise<Boolean> {
+export async function archive(src_folder: string, archive_name: string): Promise<boolean> {
   const cmd: string[] = ["7z", "a", archive_name];
 
   for (const file of Deno.readDirSync(src_folder)) {

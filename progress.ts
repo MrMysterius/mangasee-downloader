@@ -18,3 +18,16 @@ export function saveProgress(target_folder: string, progress: Progress): boolean
     return false;
   }
 }
+
+export function loadProgress(target_folder: string) {
+  const FILE_PATH = join(target_folder, "dl-progress");
+  const Decoder = new TextDecoder();
+
+  try {
+    const progress: Progress = JSON.parse(Decoder.decode(Deno.readFileSync(FILE_PATH)));
+    return progress;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
+}

@@ -14,18 +14,18 @@ interface MangaTitles {
   a: string[]; // ALTERNATIVES
 }
 
-interface SearchItem {
+interface SearchResult {
   item: MangaTitles;
   refIndex: number;
   score: number;
 }
 
-export async function searchAnime(search_term: string): Promise<SearchItem[]> {
+export async function searchAnime(search_term: string): Promise<SearchResult[]> {
   const res = await fetch(AVAILABLE_URL);
   const data: Array<MangaTitles> = JSON.parse(await res.text());
 
   const fuse = new Fuse(data, OPTIONS);
-  const findings: SearchItem[] = fuse.search(search_term, { limit: 5 });
+  const findings: SearchResult[] = fuse.search(search_term, { limit: 5 });
 
   return findings;
 }

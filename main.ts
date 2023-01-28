@@ -7,10 +7,10 @@ const ARGS = parse(Deno.args);
 switch (ARGS._[0] || undefined) {
   case "search": {
     if (ARGS._.length <= 1) break;
-    const res = await searchAnime(ARGS._.slice(1, ARGS._.length).join(" "));
-    for (const item of res) {
-      if (item.score > 0.05) continue;
-      console.log(`${Color.white("-")} ${Color.green(item.item.s)} [ ${Color.blue(item.item.i)} ]`);
+    const results = await searchAnime(ARGS._.slice(1, ARGS._.length).join(" "));
+    for (const result of results) {
+      if (result.score > 0.05) continue;
+      console.log(`${Color.white("-")} ${Color.green(result.item.s)} [ ${Color.blue(result.item.i)} ]`);
     }
     break;
   }

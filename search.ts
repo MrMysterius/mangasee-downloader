@@ -20,12 +20,12 @@ interface SearchResult {
   score: number;
 }
 
-export async function searchAnime(search_term: string): Promise<SearchResult[]> {
+export async function searchAnime(search_term: string, limit = 5): Promise<SearchResult[]> {
   const res = await fetch(AVAILABLE_URL);
   const data: Array<MangaTitles> = JSON.parse(await res.text());
 
   const fuse = new Fuse(data, OPTIONS);
-  const findings: SearchResult[] = fuse.search(search_term, { limit: 5 });
+  const findings: SearchResult[] = fuse.search(search_term, { limit });
 
   return findings;
 }

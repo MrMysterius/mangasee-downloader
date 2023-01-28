@@ -16,4 +16,5 @@ switch (ARGS._[0] || undefined) {
   }
   default:
     console.log(Color.red("# No Command Supplied - Aborting #"));
+    break;
 }

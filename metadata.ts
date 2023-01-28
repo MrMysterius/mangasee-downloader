@@ -8,7 +8,7 @@ export async function getMangaPage(mangaIndexName: string) {
   return await res.text();
 }
 
-interface BasicMangaMetadata {
+export interface BasicMangaMetadata {
   title: string;
   authors: string[];
   genres: string[];
@@ -83,7 +83,7 @@ export function extractMetadata(html_document: string) {
   return metadata;
 }
 
-interface Chapter {
+export interface Chapter {
   pretype: number;
   main: number;
   sub: number;
@@ -113,7 +113,7 @@ export function extractChapters(html_document: string) {
   return parsed;
 }
 
-interface FullMangaMetadata {
+export interface FullMangaMetadata {
   basic: BasicMangaMetadata;
   chapters: Chapter[];
 }

@@ -3,8 +3,7 @@ import { BasicMangaMetadata, Chapter } from "./metadata.ts";
 
 export interface PageInfo {
   index: number;
-  width: number;
-  height: number;
+  size: number;
   filename: string;
 }
 
@@ -47,7 +46,7 @@ export function writeComicInfo(folder_path: string, metadata: BasicMangaMetadata
   Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Pages>\n`), { create: false, append: true });
 
   for (const page of pages) {
-    Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t\t<Page Image="${page.index}" ImageWidth="${page.width}" ImageHeight="${page.height}">\n`), {
+    Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t\t<Page Image="${page.index}" ImageSize="${page.size}" />\n`), {
       create: false,
       append: true,
     });

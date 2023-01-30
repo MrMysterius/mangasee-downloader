@@ -80,3 +80,7 @@ export async function downloadChapter(mangaIndexName: string, chapter: Chapter, 
 
   return pages;
 }
+
+export function chaptersSort(chapters: Chapter[]) {
+  return chapters.sort((a, b) => parseInt(a.raw) - parseInt(b.raw));
+}

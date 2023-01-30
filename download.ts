@@ -4,6 +4,8 @@ import { join } from "https://deno.land/std@0.174.0/path/mod.ts";
 import { saveProgress } from "./progress.ts";
 import { writeComicInfo } from "./comic-info.ts";
 import { archive } from "./archive.ts";
+import * as Color from "https://deno.land/std@0.174.0/fmt/colors.ts";
+import { zeroSpaceOut } from "./main.ts";
 
 const BASE_CHAPTER_URL = "https://mangasee123.com/read-online/";
 
@@ -108,16 +110,26 @@ export async function download(
     }
     init = false;
 
+    Deno.stdout.write(
+      new TextEncoder().encode(`${Color.green("Downloading: ")} ${Color.blue(`v${chapter.pretype} - c${zeroSpaceOut(chapter.main, 4)}.${chapter.sub}`)}`)
+    );
+
     current = chapter;
     saveProgress(BASE_FOLDER_PATH, { current: current, start: start, end: end });
 
     const CHAPTER_PATH = join(BASE_FOLDER_PATH, `${mangaIndexName}-v${current.pretype}-c${current.main}${current.sub != 0 ? `.${current.sub}` : ""}`);
+    try {
+      Deno.removeSync(CHAPTER_PATH, { recursive: true });
+    } catch (_e) {}
     Deno.mkdirSync(CHAPTER_PATH, { recursive: true });
     const pages = await downloadChapter(mangaIndexName, current, CHAPTER_PATH);
     if (pages == null) return false;
 
+    Deno.stdout.write(new TextEncoder().encode(`${Color.white(" Done |")} ${Color.yellow("Writing Metadata")}`));
     if (!writeComicInfo(CHAPTER_PATH, metadata, current, pages)) return false;
+    Deno.stdout.write(new TextEncoder().encode(`${Color.white(" Done |")} ${Color.magenta("Archiving")}`));
     if (!(await archive(CHAPTER_PATH, `${CHAPTER_PATH}.cb7`))) return false;
+    Deno.stdout.write(new TextEncoder().encode(`${Color.white(" Done |\n")}`));
 
     if (chapter.raw == end.raw) break;
   }

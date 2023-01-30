@@ -9,7 +9,7 @@ const BASE_CHAPTER_URL = "https://mangasee123.com/read-online/";
 
 export async function getChapterPage(mangaIndexName: string, chapter: Chapter) {
   if (chapter.pretype == 1) {
-    const res = await fetch(`${BASE_CHAPTER_URL}${mangaIndexName}-chapter-${chapter.main}${chapter.sub != 0 ? chapter.sub : ""}.html`);
+    const res = await fetch(`${BASE_CHAPTER_URL}${mangaIndexName}-chapter-${chapter.main}${chapter.sub != 0 ? `.${chapter.sub}` : ""}.html`);
     return await res.text();
   } else {
     const res = await fetch(

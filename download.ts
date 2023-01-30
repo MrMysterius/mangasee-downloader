@@ -81,6 +81,52 @@ export async function downloadChapter(mangaIndexName: string, chapter: Chapter, 
   return pages;
 }
 
+export async function download(
+  mangaIndexName: string,
+  metadata: BasicMangaMetadata,
+  folder_path: string,
+  chapters: Chapter[],
+  start: Chapter,
+  end: Chapter,
+  current: Chapter | null = null
+) {
+  const BASE_FOLDER_PATH = join(folder_path, mangaIndexName);
+  Deno.mkdirSync(BASE_FOLDER_PATH, { recursive: true });
+
+  if (current == null) current = start;
+  if (!(findChapter(chapters, current).length > 1)) return false;
+
+  chapters = chaptersSort(chapters);
+  let init = true;
+
+  for (let chapter of chapters) {
+    if (chapter.raw != current.raw && init) {
+      continue;
+    }
+    init = false;
+
+    current = chapter;
+    saveProgress(BASE_FOLDER_PATH, { current: current, start: start, end: end });
+
+    const CHAPTER_PATH = join(BASE_FOLDER_PATH, `${mangaIndexName}-v${current.pretype}-c${current.main}${current.sub != 0 ? `.${current.sub}` : ""}`);
+    Deno.mkdirSync(CHAPTER_PATH, { recursive: true });
+    const pages = await downloadChapter(mangaIndexName, current, CHAPTER_PATH);
+    if (pages == null) return false;
+
+    if (!writeComicInfo(CHAPTER_PATH, metadata, current, pages)) return false;
+    if (!(await archive(CHAPTER_PATH, `${CHAPTER_PATH}.cb7`))) return false;
+
+    if (chapter.raw == end.raw) break;
+  }
+
+  return true;
+}
+
+export interface PartChapter {
+  pretype: number;
+  main: number;
+  sub: number;
+}
 
 export function findChapter(chapters: Chapter[], search: PartChapter) {
   return chapters.filter((chapter) => chapter.pretype == search.pretype && chapter.main == search.main && chapter.sub == search.sub);

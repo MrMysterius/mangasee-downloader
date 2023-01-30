@@ -8,11 +8,15 @@ const ARGS = parse(Deno.args);
 switch (ARGS._[0] || undefined) {
   case "search": {
     if (ARGS._.length <= 1) break;
+
     const results = await searchAnime(ARGS._.slice(1, ARGS._.length).join(" "), parseInt(ARGS.l) || parseInt(ARGS["limit"]) || 5);
+
     for (const result of results) {
       if (result.score > (parseInt(ARGS.s) || parseInt(ARGS["score-threshold"]) || 0.05)) continue;
+
       let release_year = "";
       let chapters_available = "";
+
       if (!ARGS["no-metadata"] && !ARGS.n) {
         const metadata = await getBasicMetadata(result.item.i);
         release_year = metadata?.release_year || "";

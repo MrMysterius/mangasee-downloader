@@ -3,8 +3,7 @@ import { BasicMangaMetadata, Chapter } from "./metadata.ts";
 
 export interface PageInfo {
   index: number;
-  width: number;
-  height: number;
+  size: number;
   filename: string;
 }
 
@@ -30,10 +29,11 @@ export function writeComicInfo(folder_path: string, metadata: BasicMangaMetadata
     }
   );
   Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Series>${metadata.title}</Series>\n`), { create: false, append: true });
-  Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Number>${chapter_info.main}</Number>\n`), { create: false, append: true });
+  Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Number>${chapter_info.main}${chapter_info.sub != 0 ? `.${chapter_info.sub}` : ""}</Number>\n`), {
+    create: false,
+    append: true,
+  });
   Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Volume>${chapter_info.pretype}</Volume>\n`), { create: false, append: true });
-  if (chapter_info.sub != 0)
-    Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<AlternateNumber>${chapter_info.sub}</AlternateNumber>\n`), { create: false, append: true });
   Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Notes>Downloaded/Scrapped with Mangasee123 Downloader from MrMysterius</Notes>\n`), {
     create: false,
     append: true,
@@ -47,7 +47,7 @@ export function writeComicInfo(folder_path: string, metadata: BasicMangaMetadata
   Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t<Pages>\n`), { create: false, append: true });
 
   for (const page of pages) {
-    Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t\t<Page Image="${page.index}" ImageWidth="${page.width}" ImageHeight="${page.height}">\n`), {
+    Deno.writeFileSync(FILE_PATH, Encoder.encode(`\t\t<Page Image="${page.index}" ImageSize="${page.size}" />\n`), {
       create: false,
       append: true,
     });

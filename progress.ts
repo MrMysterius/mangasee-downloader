@@ -1,9 +1,10 @@
 import { join } from "https://deno.land/std@0.174.0/path/mod.ts";
+import { Chapter } from "./metadata.ts";
 
 interface Progress {
-  current: number;
-  start: number;
-  end: number;
+  current: Chapter;
+  start: Chapter;
+  end: Chapter;
 }
 
 export function saveProgress(target_folder: string, progress: Progress): boolean {
@@ -26,8 +27,7 @@ export function loadProgress(target_folder: string) {
   try {
     const progress: Progress = JSON.parse(Decoder.decode(Deno.readFileSync(FILE_PATH)));
     return progress;
-  } catch (err) {
-    console.error(err);
+  } catch (_e) {
     return undefined;
   }
 }

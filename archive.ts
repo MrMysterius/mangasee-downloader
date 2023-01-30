@@ -1,10 +1,7 @@
-export async function archive(src_folder: string, archive_name: string): Promise<boolean> {
-  const cmd: string[] = ["7z", "a", archive_name];
+import { normalize, posix } from "https://deno.land/std@0.174.0/path/mod.ts";
 
-  for (const file of Deno.readDirSync(src_folder)) {
-    if (file.isSymlink) continue;
-    cmd.push(`${src_folder}/${file.name}`);
-  }
+export async function archive(src_folder: string, archive_name: string, delete_src = true): Promise<boolean> {
+  const cmd: string[] = ["7z", "a", archive_name, posix.normalize(`.\\${posix.normalize(normalize(`${src_folder}`))}\\*`)];
 
   const process = Deno.run({
     cmd,

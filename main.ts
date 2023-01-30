@@ -34,3 +34,9 @@ switch (ARGS._[0] || undefined) {
     console.log(Color.red("# No Command Supplied - Aborting #"));
     break;
 }
+
+export function zeroSpaceOut(number: string | number, spaces: number) {
+  const number_string = number.toString();
+  if (number_string.length >= spaces) return number_string;
+  return "0".repeat(spaces - number_string.length) + number_string;
+}

@@ -49,12 +49,14 @@ export function extractMetadata(html_document: string) {
     switch (label?.innerText) {
       case "Author(s):": {
         child.querySelectorAll("a").forEach((a) => {
+          //@ts-ignore property innerText does exist but is not in the Interface/Declaration
           metadata.authors.push(a.innerText);
         });
         continue;
       }
       case "Genre(s):": {
         child.querySelectorAll("a").forEach((a) => {
+          //@ts-ignore property innerText does exist but is not in the Interface/Declaration
           metadata.genres.push(a.innerText);
         });
         continue;

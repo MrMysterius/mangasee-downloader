@@ -9,5 +9,7 @@ export async function archive(src_folder: string, archive_name: string, delete_s
     stderr: "piped",
   });
 
-  return (await process.status()).success;
+  if (!(await process.status()).success) return false;
+  if (delete_src) Deno.removeSync(src_folder, { recursive: true });
+  return true;
 }

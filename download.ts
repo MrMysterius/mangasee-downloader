@@ -27,7 +27,7 @@ interface ChapterInfo {
 
 export function extractChapterInfo(html_document: string): ChapterInfo | null {
   const match = html_document.match(/vm\.CurChapter = (.+);/m);
-  return JSON.parse(match?.[1] || "") || null;
+  return JSON.parse(match?.[1] || "[]") || null;
 }
 
 export function extractHost(html_document: string) {

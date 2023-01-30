@@ -27,8 +27,7 @@ export function loadProgress(target_folder: string) {
   try {
     const progress: Progress = JSON.parse(Decoder.decode(Deno.readFileSync(FILE_PATH)));
     return progress;
-  } catch (err) {
-    console.error(err);
+  } catch (_e) {
     return undefined;
   }
 }

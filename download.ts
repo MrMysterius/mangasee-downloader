@@ -97,7 +97,7 @@ export async function download(
   Deno.mkdirSync(BASE_FOLDER_PATH, { recursive: true });
 
   if (current == null) current = start;
-  if (!(findChapter(chapters, current).length > 1)) return false;
+  if (!findChapter(chapters, current)?.chapter) return false;
 
   chapters = chaptersSort(chapters);
   let init = true;
@@ -132,7 +132,9 @@ export interface PartChapter {
 }
 
 export function findChapter(chapters: Chapter[], search: PartChapter) {
-  return chapters.filter((chapter) => chapter.pretype == search.pretype && chapter.main == search.main && chapter.sub == search.sub);
+  const index = chapters.findIndex((chapter) => chapter.pretype == search.pretype && chapter.main == search.main && chapter.sub == search.sub);
+  if (index == -1) return null;
+  return { chapter: chapters[index], index };
 }
 
 export function chaptersSort(chapters: Chapter[]) {

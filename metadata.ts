@@ -49,12 +49,14 @@ export function extractMetadata(html_document: string) {
     switch (label?.innerText) {
       case "Author(s):": {
         child.querySelectorAll("a").forEach((a) => {
+          //@ts-ignore property innerText does exist but is not in the Interface/Declaration
           metadata.authors.push(a.innerText);
         });
         continue;
       }
       case "Genre(s):": {
         child.querySelectorAll("a").forEach((a) => {
+          //@ts-ignore property innerText does exist but is not in the Interface/Declaration
           metadata.genres.push(a.innerText);
         });
         continue;
@@ -87,6 +89,7 @@ export interface Chapter {
   pretype: number;
   main: number;
   sub: number;
+  raw: string;
 }
 
 export async function getChapters(mangaIndexName: string) {
@@ -107,6 +110,7 @@ export function extractChapters(html_document: string) {
       pretype: parseInt(match[1]),
       main: parseInt(match[2]),
       sub: parseInt(match[3]),
+      raw: chapter.Chapter,
     });
   }
 

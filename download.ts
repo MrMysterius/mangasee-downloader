@@ -81,6 +81,11 @@ export async function downloadChapter(mangaIndexName: string, chapter: Chapter, 
   return pages;
 }
 
+
+export function findChapter(chapters: Chapter[], search: PartChapter) {
+  return chapters.filter((chapter) => chapter.pretype == search.pretype && chapter.main == search.main && chapter.sub == search.sub);
+}
+
 export function chaptersSort(chapters: Chapter[]) {
   return chapters.sort((a, b) => parseInt(a.raw) - parseInt(b.raw));
 }

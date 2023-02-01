@@ -2,13 +2,17 @@
 
 ## Prerequisites
 
+### 7-Zip
+
 For the Mangasee123 Downloader to work you need to have 7-Zip as Command Line Tool install.
 In the way that it is accessible with the command `7z` in the terminal.
+
+On windows you can download this from the [7-zip.org](https://www.7-zip.org/download.html) download page. Make sure to take `7-Zip Extra: standalone console version` version. (yes, yes you need to have working 7z or something that can work with it installed before). After extracting the archive move the file `7za.exe` to a folder that is in [PATH](https://techpp.com/2021/08/26/set-path-variable-in-windows-guide/) (like `C:\Windows`) or make a folder and add it to [PATH](https://techpp.com/2021/08/26/set-path-variable-in-windows-guide/). Also rename it to `7z.exe` otherwise it will not work.
 
 ## Installation
 
 Download the corresponding binary from the releases page.
-On Windows Drop it somewhere where it will be in a folder already covered by PATH like `C:\Windows` or add it manually to PATH.
+On Windows Drop it somewhere where it will be in a folder already covered by [PATH](https://techpp.com/2021/08/26/set-path-variable-in-windows-guide/) like `C:\Windows` or add it manually to [PATH](https://techpp.com/2021/08/26/set-path-variable-in-windows-guide/).
 On Linux make an alias to it or add it to `/bin` or `/usr/bin`.
 
 ## Usage / Commands and Arguments
@@ -43,7 +47,7 @@ mangasee-dl search One Piece
 
 Possible Flags:
 
-| Flag | Description | Default
+| Flag / Argument | Description | Default
 |-|-|-|
 | -l / --limit | Sets the limit of the maximum displayed search results | 5
 | -s / --score-threshold | Sets the score threshold for the match rating of the result | 0.05

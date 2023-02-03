@@ -94,7 +94,7 @@ export async function download(
   start: Chapter,
   end: Chapter,
   current: Chapter | null = null,
-  archive = true
+  doArchive = true
 ) {
   const BASE_FOLDER_PATH = join(folder_path, mangaIndexName);
   Deno.mkdirSync(BASE_FOLDER_PATH, { recursive: true });
@@ -129,7 +129,7 @@ export async function download(
     Deno.stdout.write(new TextEncoder().encode(`${Color.white(" Done |")} ${Color.yellow("Writing Metadata")}`));
     if (!writeComicInfo(CHAPTER_PATH, metadata, current, pages)) return false;
     Deno.stdout.write(new TextEncoder().encode(`${Color.white(" Done |")} ${Color.magenta("Archiving")}`));
-    if (archive && !(await archive(CHAPTER_PATH, `${CHAPTER_PATH}.cb7`))) return false;
+    if (doArchive && !(await archive(CHAPTER_PATH, `${CHAPTER_PATH}.cb7`))) return false;
     Deno.stdout.write(new TextEncoder().encode(`${Color.white(" Done |\n")}`));
 
     if (chapter.raw == end.raw) break;

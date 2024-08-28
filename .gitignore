@@ -2,5 +2,4 @@
 .vscode/
 
 # Builds
-mangasee-dl
-mangasee-dl.exe
+build/

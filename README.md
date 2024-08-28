@@ -15,6 +15,8 @@ Download the corresponding binary from the releases page.
 On Windows Drop it somewhere where it will be in a folder already covered by [PATH](https://techpp.com/2021/08/26/set-path-variable-in-windows-guide/) like `C:\Windows` or add it manually to [PATH](https://techpp.com/2021/08/26/set-path-variable-in-windows-guide/).
 On Linux make an alias to it or add it to `/bin` or `/usr/bin`.
 
+Alternatively you can just use it through the terminal directly, if you are in the same folder in the terminal as where you downloaded/have the program at. You probably then should use `./mangasee-dl` or `./mangasee-dl.exe` respectively.
+
 ## Usage / Commands and Arguments
 
 Use it through the terminal like this.

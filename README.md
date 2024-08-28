@@ -43,7 +43,7 @@ mangasee-dl search One Piece
 - 1997 One Piece - Digital Colored Comics #1004 [ One-Piece-Digital-Colored-Comics ]
 ```
 
-**The Boxed in Name (`[One-Piece]`) that is the Index Name used by other commands like the donwload command.**
+**The Boxed in Name (`[One-Piece]`) that is the Index Name used by other commands like the download command.**
 
 Possible Flags:
 
@@ -62,3 +62,9 @@ Basic Usage:
 ```bash
 mangasee-dl download <manga-index-name> [flags]
 ```
+
+| Flag / Argument | Description | Default
+|-|-|-|
+| -c / --compress | Disables compression of the individual chapters - do this if you don't want to install 7z | -
+| -s / --start | To manual set the chapter it should start downloading from. (It has an automatic download progress tracking build in look in output folder for a json file) | -
+| -e / --end | To manual set the chapter it should end downloading at. (It has an automatic download progress tracking build in look in output folder for a json file) | -

@@ -116,7 +116,8 @@ switch (ARGS._[0] || undefined) {
 
     console.log(Color.gray("\n----------------------------------------"));
 
-    await download(ARGS._[1] as string, metadata.basic, Deno.cwd(), metadata.chapters, start, end, current);
+    const archive = ARGS.c || ARGS['compress'] || false;
+    await download(ARGS._[1] as string, metadata.basic, Deno.cwd(), metadata.chapters, start, end, current, archive);
 
     console.log(Color.green("# Finished Download #"));
 
